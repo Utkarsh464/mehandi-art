@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom scroll ── */
+:root {
+  --gold: #c49a2a;
+  --gold-light: #d4a843;
+  --cream: #faf3e0;
+  --espresso: #2c1810;
+  --mehndi: #7b3f1e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--cream);
+  color: var(--espresso);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── Micro-interactions ── */
+a, button {
+  transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.23,1,0.32,1), color 0.18s ease;
+}
+a:active, button:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* Subtle underline grow on links */
+.micro-link {
+  position: relative;
+}
+.micro-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -1px;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.28s cubic-bezier(0.23,1,0.32,1);
+}
+.micro-link:hover::after { width: 100%; }
+
+/* Gold focus ripple */
+@keyframes rippleGold {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(4); opacity: 0; }
+}
+.ripple-gold {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-gold::before {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  background: rgba(196,154,42,0.35);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  pointer-events: none;
+}
+.ripple-gold:focus::before { animation: rippleGold 0.55s ease-out forwards; }
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 10px;
+}
+
+/* ── Gold shimmer text ── */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #c49a2a 0%,
+    #f0d060 30%,
+    #c49a2a 50%,
+    #f0d060 70%,
+    #c49a2a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Noise texture overlay ── */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+/* ── Glass card ── */
+.glass-card {
+  background: rgba(250, 243, 224, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 168, 67, 0.25);
+  box-shadow:
+    0 8px 32px rgba(44, 24, 16, 0.08),
+    inset 0 1px 0 rgba(240, 208, 96, 0.15);
+}
+
+/* ── Decorative divider ── */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+
+/* ── Section title ── */
+.section-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+/* ── Ornament ── */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196,154,42,0.5));
+}
+.ornament::after {
+  background: linear-gradient(90deg, rgba(196,154,42,0.5), transparent);
+}
+
+/* ── Tilt card ── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── WhatsApp pulse ── */
+.wa-btn {
+  animation: pulseGold 2.5s ease-in-out infinite;
+}
+
+/* ── Page fade ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Floating mandala ── */
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.mandala-spin {
+  animation: rotateSlow 60s linear infinite;
+}
+
+/* ── Gradient mesh background ── */
+.mesh-bg {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(196, 154, 42, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(123, 63, 30, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(196, 154, 42, 0.04) 0%, transparent 60%),
+    var(--cream);
+}
